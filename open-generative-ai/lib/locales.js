@@ -17,6 +17,7 @@
 
 import enCommon from '../messages/en/common.json';
 import zhCommon from '../messages/zh/common.json';
+import koCommon from '../messages/ko/common.json';
 
 export const DEFAULT_LOCALE = 'en';
 
@@ -37,6 +38,15 @@ export const LOCALE_CONFIGS = {
     rootPath: '/zh',
     messages: {
       common: zhCommon,
+    },
+  },
+  ko: {
+    code: 'ko',
+    nativeName: '한국어',
+    htmlLang: 'ko',
+    rootPath: '/ko',
+    messages: {
+      common: koCommon,
     },
   },
 };

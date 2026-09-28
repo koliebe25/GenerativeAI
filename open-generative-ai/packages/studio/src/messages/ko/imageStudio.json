@@ -1,0 +1,68 @@
+{
+  "uploadButton": {
+    "faceLabel": "얼굴",
+    "referenceImageLabel": "참고 이미지",
+    "addUpToImages": "이미지를 최대 {max}장까지 넣을 수 있어요",
+    "singleSelectedTitle": "1장 선택됨 — 클릭해서 더 추가 (최대 {max}장)",
+    "multiSelectedTitle": "{max}장 중 {count}장 선택됨 — 클릭해서 관리",
+    "tooLargeAlert": "다음 이미지가 너무 커요 (최대 10MB): {names}",
+    "uploadFailedAlert": "이미지 업로드 실패: {message}",
+    "headerTitle": "참고 이미지",
+    "selectUpTo": "최대 {max}장까지 고르세요",
+    "doneButton": "✓ 완료 ({count})",
+    "uploadFilesButton": "파일 올리기",
+    "uploadNewButton": "새로 올리기",
+    "emptyState": "아직 올린 이미지가 없어요",
+    "removeFromHistory": "기록에서 지우기",
+    "selectedCount": "{max}장 중 {count}장 선택",
+    "useSelected": "선택한 이미지 사용"
+  },
+  "modelDropdown": {
+    "categoryAll": "전체",
+    "categoryT2I": "글 → 이미지",
+    "categoryI2I": "이미지 → 이미지",
+    "allProviders": "모든 제공사",
+    "searchPlaceholder": "모델 검색...",
+    "modelsSuffix": "모델",
+    "noModelsFound": "모델을 찾지 못했어요"
+  },
+  "gallery": {
+    "generatedImageAlt": "생성된 이미지",
+    "download": "다운로드",
+    "delete": "삭제",
+    "deleteConfirm": "이 결과물을 삭제할까요?",
+    "deleteFailed": "삭제하지 못했어요",
+    "noPrompt": "프롬프트 없음",
+    "modelFallback": "이미지 스튜디오"
+  },
+  "emptyState": {
+    "heading": "지금 바로 만들어 보세요",
+    "subtitle": "장면, 캐릭터, 분위기, 스타일을 설명하면 이미지로 만들어 줘요"
+  },
+  "promptBar": {
+    "placeholderMultiImage": "이미지 {count}장 선택됨 — 어떻게 바꿀지 설명해 주세요 (선택)",
+    "placeholderI2I": "이 이미지를 어떻게 바꿀지 설명해 주세요 (선택)",
+    "placeholderT2I": "만들고 싶은 이미지를 설명해 주세요",
+    "swapFaceLabel": "얼굴 바꾸기",
+    "effectFallback": "효과",
+    "drawButton": "그리기",
+    "generating": "생성 중...",
+    "generateButton": "생성"
+  },
+  "popovers": {
+    "model": "모델",
+    "aspectRatio": "화면 비율",
+    "resolution": "해상도",
+    "effectType": "효과 종류"
+  },
+  "errors": {
+    "noImageReferenceSupport": "{name} 모델은 참고 이미지를 지원하지 않아요.",
+    "uploadReferenceFirst": "먼저 참고 이미지를 올려 주세요.",
+    "uploadSwapFaceFirst": "바꿀 얼굴 이미지를 올려 주세요.",
+    "enterPromptFirst": "이미지를 만들려면 프롬프트를 입력해 주세요.",
+    "generationFailed": "이미지 생성에 실패했어요"
+  },
+  "fullscreen": {
+    "previewAlt": "전체 화면 미리보기"
+  }
+}

@@ -33,6 +33,7 @@ import {
 } from "./prompt/PromptComposer.jsx";
 import en from "../messages/en/motionControlStudio.json";
 import zh from "../messages/zh/motionControlStudio.json";
+import ko from "../messages/ko/motionControlStudio.json";
 import { resolveCopy } from "../i18nUtils";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -555,7 +556,7 @@ export default function MotionControlStudio({
   onFilesHandled,
   locale = "en",
 }) {
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
   const LEGACY_PERSIST_KEY = "hg_motion_control_studio_persistent";
   const PERSIST_KEY = scopedPersistKey(LEGACY_PERSIST_KEY, apiKey);
 

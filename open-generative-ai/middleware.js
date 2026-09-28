@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getLocaleFromPathname } from './lib/locales';
+import { CLASS_COOKIE, getClassConfig, hasClassAccess } from './lib/classAccess';
 
 function addSecurityHeaders(response) {
     // Prevent MIME type sniffing (CWE-693)
@@ -21,8 +22,37 @@ function addSecurityHeaders(response) {
     return response;
 }
 
-export function middleware(request) {
+// Reachable without the class passcode (the login page and its endpoint).
+function isClassPublicPath(pathname) {
+    return pathname === '/class-login' || pathname === '/api/class-login';
+}
+
+export async function middleware(request) {
     const url = request.nextUrl;
+    const classConfig = getClassConfig();
+
+    // Class mode gate: everything except the login page needs the passcode cookie.
+    if (classConfig.gateEnabled && !isClassPublicPath(url.pathname)) {
+        const allowed = await hasClassAccess(request.cookies.get(CLASS_COOKIE)?.value, classConfig);
+        if (!allowed) {
+            if (url.pathname.startsWith('/api/')) {
+                return addSecurityHeaders(NextResponse.json({ error: 'Class passcode required' }, { status: 401 }));
+            }
+            const loginUrl = new URL('/class-login', request.url);
+            loginUrl.searchParams.set('next', `${url.pathname}${url.search}`);
+            return addSecurityHeaders(NextResponse.redirect(loginUrl));
+        }
+    }
+
+    // Class mode key: stamp the instructor's key onto every proxied API call so
+    // it never has to be sent to (or stored in) the browser.
+    let requestHeaders;
+    if (classConfig.managedKey && url.pathname.startsWith('/api/') && !isClassPublicPath(url.pathname)) {
+        requestHeaders = new Headers(request.headers);
+        requestHeaders.set('x-api-key', classConfig.apiKey);
+        requestHeaders.delete('authorization');
+    }
+    const forwardRequest = requestHeaders ? { request: { headers: requestHeaders } } : undefined;
 
     // Catch requests to /api/workflow, /api/app, and /api/v1
     const isMuApi = url.pathname.startsWith('/api/workflow') ||
@@ -37,7 +67,7 @@ export function middleware(request) {
 
         if (url.pathname.startsWith('/api/v1') && !isHandledByRoute) {
             const targetUrl = new URL(url.pathname + url.search, 'https://api.muapi.ai');
-            const rewriteResponse = NextResponse.rewrite(targetUrl);
+            const rewriteResponse = NextResponse.rewrite(targetUrl, forwardRequest);
             return addSecurityHeaders(rewriteResponse);
         }
     }
@@ -45,7 +75,7 @@ export function middleware(request) {
     // Plain response header carrying the locale derived from the URL path
     // (same "set in middleware, read via headers() in the root layout"
     // trick the main muapi client uses — see docs/localization.md).
-    const response = NextResponse.next();
+    const response = NextResponse.next(forwardRequest);
     response.headers.set('x-locale', getLocaleFromPathname(url.pathname));
     return addSecurityHeaders(response);
 }

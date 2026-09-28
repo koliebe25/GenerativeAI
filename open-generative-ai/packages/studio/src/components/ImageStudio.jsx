@@ -59,6 +59,7 @@ import {
 } from "./prompt/PromptComposer.jsx";
 import en from "../messages/en/imageStudio.json";
 import zh from "../messages/zh/imageStudio.json";
+import ko from "../messages/ko/imageStudio.json";
 import { resolveCopy } from "../i18nUtils";
 
 // ─── helpers ────────────────────────────────────────────────────────────────
@@ -978,7 +979,7 @@ export default function ImageStudio({
   onFilesHandled,
   locale = "en",
 }) {
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
   const LEGACY_PERSIST_KEY = "hg_image_studio_persistent";
   const PERSIST_KEY = scopedPersistKey(LEGACY_PERSIST_KEY, apiKey);
   useEffect(() => {

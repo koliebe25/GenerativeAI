@@ -16,6 +16,7 @@ import {
 } from "../muapi.js";
 import en from "../messages/en/agentStudio.json";
 import zh from "../messages/zh/agentStudio.json";
+import ko from "../messages/ko/agentStudio.json";
 import { resolveCopy } from "../i18nUtils";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -165,7 +166,7 @@ const TABS = ["templates", "my-agents", "my-chats"];
 export default function AgentStudio({ apiKey, locale = "en" }) {
   const router = useRouter();
   const params = useParams();
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
 
   const [activeMainTab, setActiveMainTab] = useState("templates");
   const [agents, setAgents] = useState([]);

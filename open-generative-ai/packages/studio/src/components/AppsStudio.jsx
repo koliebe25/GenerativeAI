@@ -11,6 +11,7 @@ import { registerAppInterest, getAppInterests } from '../muapi.js';
 import toast, { Toaster } from 'react-hot-toast';
 import en from '../messages/en/appsStudio.json';
 import zh from '../messages/zh/appsStudio.json';
+import ko from '../messages/ko/appsStudio.json';
 import { resolveCopy } from '../i18nUtils';
 
 const templateApps = [
@@ -133,7 +134,7 @@ const dummyAppsData = [
 ];
 
 export default function AppsStudio({ apiKey, locale = 'en' }) {
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
   const [selectedApp, setSelectedApp] = useState(null);
   const [isRequesting, setIsRequesting] = useState(false);
   const [requestedApps, setRequestedApps] = useState([]);

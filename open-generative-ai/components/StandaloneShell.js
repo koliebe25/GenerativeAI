@@ -12,6 +12,7 @@ const DesignAgentStudio = dynamic(() => import('studio').then(mod => mod.DesignA
 import axios from 'axios';
 import ApiKeyModal from './ApiKeyModal';
 import { getCommonCopy, getLocaleConfig, localizeStudioPath } from '@/lib/locales';
+import { MANAGED_KEY_PLACEHOLDER } from '@/lib/classConstants';
 
 // Tab/category ids, icons, and English `label` fallbacks are stable
 // identifiers, not locale copy — the actual rendered label is resolved
@@ -297,7 +298,9 @@ const persistNotifications = (notifications) => {
   }
 };
 
-export default function StandaloneShell({ locale = 'en' }) {
+// managedKey: class mode (see lib/classAccess.js) — the server holds the
+// instructor's key, so the browser only ever sees a placeholder.
+export default function StandaloneShell({ locale = 'en', managedKey = false }) {
   const params = useParams();
   const router = useRouter();
   const slug = params?.slug || [];
@@ -576,6 +579,11 @@ export default function StandaloneShell({ locale = 'en' }) {
 
   useEffect(() => {
     setHasMounted(true);
+    if (managedKey) {
+      setApiKey(MANAGED_KEY_PLACEHOLDER);
+      fetchBalance(MANAGED_KEY_PLACEHOLDER);
+      return;
+    }
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       setApiKey(stored);
@@ -583,7 +591,7 @@ export default function StandaloneShell({ locale = 'en' }) {
       // Sync cookie immediately on mount to establish identity for background requests
       document.cookie = `muapi_key=${stored}; path=/; max-age=31536000; SameSite=Lax`;
     }
-  }, [fetchBalance]);
+  }, [fetchBalance, managedKey]);
 
   const handleKeySave = useCallback((key) => {
     localStorage.setItem(STORAGE_KEY, key);
@@ -597,6 +605,14 @@ export default function StandaloneShell({ locale = 'en' }) {
     setApiKey(null);
     setBalance(null);
     document.cookie = "muapi_key=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }, []);
+
+  const handleLeaveClass = useCallback(async () => {
+    try {
+      await fetch('/api/class-login', { method: 'DELETE' });
+    } finally {
+      window.location.href = '/class-login';
+    }
   }, []);
 
   // Inject API key into all outgoing Axios requests (prop-based approach)
@@ -704,8 +720,8 @@ export default function StandaloneShell({ locale = 'en' }) {
         </div>
       )}
 
-      {/* Vadoo promo banner */}
-      {showVadooBanner && (
+      {/* Vadoo promo banner (hidden in class mode) */}
+      {showVadooBanner && !managedKey && (
         <div className="flex-shrink-0 w-full bg-indigo-600 flex items-center justify-center px-4 py-2 gap-3 relative z-50">
           <a
             href="https://vadoo.tv"
@@ -1186,18 +1202,24 @@ export default function StandaloneShell({ locale = 'en' }) {
                 <label className="block text-xs font-bold text-white/30 mb-2">
                    {copy.settingsModal.activeApiKey}
                 </label>
-                <div className="text-[13px] font-mono text-white/80">
-                  {apiKey.slice(0, 8)}••••••••••••••••
-                </div>
+                {managedKey ? (
+                  <div className="text-[13px] text-white/80">
+                    {copy.settingsModal.managedKey}
+                  </div>
+                ) : (
+                  <div className="text-[13px] font-mono text-white/80">
+                    {apiKey.slice(0, 8)}••••••••••••••••
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="flex gap-3">
               <button
-                onClick={handleKeyChange}
+                onClick={managedKey ? handleLeaveClass : handleKeyChange}
                 className="flex-1 h-10 rounded-md bg-red-500/10 text-red-400 hover:bg-red-500/20 text-xs font-semibold transition-all"
               >
-                {copy.settingsModal.changeKey}
+                {managedKey ? copy.settingsModal.leaveClass : copy.settingsModal.changeKey}
               </button>
               <button
                 onClick={() => setShowSettings(false)}

@@ -1,0 +1,73 @@
+{
+  "headings": {
+    "startCreatingWith": "지금 바로 만들어 보세요",
+    "aiClippingStudio": "AI 클리핑 스튜디오",
+    "emptyStateSubtitle": "영상에서 화제가 될 하이라이트와 정확한 구간을 자동으로 뽑아 줘요.",
+    "clippingHistoryRuns": "클리핑 기록",
+    "savedGenerations": "저장된 결과 {count}개",
+    "backToHistory": "기록으로 돌아가기",
+    "highlightsTimeline": "하이라이트 타임라인",
+    "matches": "{count}개 찾음",
+    "extractedVideoClips": "추출한 영상 클립",
+    "aspectRatioLabel": "화면 비율: {ratio}",
+    "originalVideoPlayer": "원본 영상 플레이어"
+  },
+  "modes": {
+    "timelineSeek": "타임라인 탐색 모드",
+    "clipsGallery": "클립 갤러리 모드"
+  },
+  "labels": {
+    "highlights": "하이라이트 {count}개",
+    "clips": "클립 {count}개",
+    "highlightFallback": "하이라이트 {index}",
+    "scoreSuffix": "점",
+    "durationSuffix": "초",
+    "seekAndPlay": "이동해서 재생",
+    "clipIndex": "클립 {index}",
+    "aiClipping": "AI 클리핑"
+  },
+  "buttons": {
+    "deleteFromHistory": "기록에서 삭제",
+    "delete": "삭제",
+    "copyLink": "링크 복사",
+    "copyLinkShort": "링크 복사",
+    "download": "다운로드",
+    "clearVideo": "영상 지우기",
+    "uploadSourceVideo": "원본 영상 올리기",
+    "generate": "생성",
+    "generating": "생성 중...",
+    "coordinatesOnly": "구간 정보만"
+  },
+  "placeholders": {
+    "promptOrUrl": "뽑아낼 하이라이트를 설명해 주세요"
+  },
+  "popovers": {
+    "aspectRatio": "화면 비율",
+    "maxHighlights": "최대 하이라이트 수",
+    "limit": "최대:"
+  },
+  "empty": {
+    "noHighlights": "뽑아낸 하이라이트가 없어요.",
+    "noClips": "만들어진 영상 클립이 없어요. 다시 실행해 보세요."
+  },
+  "alerts": {
+    "urlCopied": "주소를 복사했어요!",
+    "needVideo": "먼저 영상을 올리거나 영상 주소를 붙여넣어 주세요."
+  },
+  "errors": {
+    "dismissNotification": "알림 닫기",
+    "videoTooLarge": "이 모드에서 쓰기에는 파일이 너무 커요. 영상을 압축하거나 잘라서 더 작은 파일로 올려 주세요.",
+    "videoExceedsLimit": "영상은 {mb}MB까지 올릴 수 있어요.",
+    "uploadFailed": "영상 업로드에 실패했어요. 다시 시도해 주세요.",
+    "generationFailed": "AI 클리핑 처리에 실패했어요."
+  },
+  "sourceVideoFallback": "source_video.mp4",
+  "aspectRatioLabels": {
+    "9:16": "9:16 (틱톡 / 릴스 / 쇼츠)",
+    "16:9": "16:9 (유튜브 / TV)",
+    "1:1": "1:1 (인스타그램 정사각형)",
+    "4:5": "4:5 (인스타그램 세로)",
+    "4:3": "4:3 (클래식 영상)",
+    "3:4": "3:4 (세로)"
+  }
+}

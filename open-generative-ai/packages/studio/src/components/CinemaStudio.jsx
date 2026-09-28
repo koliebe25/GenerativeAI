@@ -23,6 +23,7 @@ import {
 } from "./prompt/PromptComposer.jsx";
 import en from "../messages/en/cinemaStudio.json";
 import zh from "../messages/zh/cinemaStudio.json";
+import ko from "../messages/ko/cinemaStudio.json";
 import { resolveCopy } from "../i18nUtils";
 
 // ─── Constants (inlined from promptUtils) ───────────────────────────────────
@@ -538,7 +539,7 @@ export default function CinemaStudio({
   historyItems,
   locale = "en",
 }) {
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
   const LEGACY_PERSIST_KEY = "hg_cinema_studio_persistent";
   const PERSIST_KEY = scopedPersistKey(LEGACY_PERSIST_KEY, apiKey);
   useEffect(() => {

@@ -42,7 +42,9 @@
     "subtitle": "Manage your AI studio preferences and authentication.",
     "activeApiKey": "Active API Key",
     "changeKey": "Change Key",
-    "close": "Close"
+    "close": "Close",
+    "managedKey": "Connected with the instructor's key",
+    "leaveClass": "Leave class"
   },
   "notifications": {
     "generating": "is generating",

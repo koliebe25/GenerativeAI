@@ -42,7 +42,9 @@
     "subtitle": "管理您的 AI 工作室偏好设置和身份验证。",
     "activeApiKey": "当前 API 密钥",
     "changeKey": "更换密钥",
-    "close": "关闭"
+    "close": "关闭",
+    "managedKey": "已通过讲师的密钥连接",
+    "leaveClass": "退出课堂"
   },
   "notifications": {
     "generating": "正在生成",

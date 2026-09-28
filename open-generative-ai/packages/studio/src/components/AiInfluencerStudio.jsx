@@ -9,6 +9,7 @@ import MobileGenerationActions, {
 } from "./MobileGenerationActions.jsx";
 import en from "../messages/en/aiInfluencerStudio.json";
 import zh from "../messages/zh/aiInfluencerStudio.json";
+import ko from "../messages/ko/aiInfluencerStudio.json";
 import { resolveCopy } from "../i18nUtils";
 
 const CDN = "https://cdn.muapi.ai/influencer";
@@ -348,7 +349,7 @@ export default function AiInfluencerStudio({
   isGenerating: externalIsGenerating,
   locale = "en",
 }) {
-  const copy = resolveCopy(en, zh, locale);
+  const copy = resolveCopy(en, { zh, ko }[locale], locale);
   const [activeTab, setActiveTab] = useState("face");
 
   const [selectedOptions, setSelectedOptions] = useState(() => {

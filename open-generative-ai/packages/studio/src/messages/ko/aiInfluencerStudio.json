@@ -1,0 +1,63 @@
+{
+  "builder": {
+    "title": "캐릭터 만들기",
+    "reset": "초기화"
+  },
+  "categoryTabs": {
+    "face": "얼굴",
+    "body": "몸",
+    "style": "스타일"
+  },
+  "subcategories": {
+    "character_type": "캐릭터 유형",
+    "gender": "성별",
+    "ethnicity_origin_base": "인종 / 출신",
+    "eye_color": "눈 색",
+    "eyes_type": "눈 모양",
+    "eyes_details": "눈 특징",
+    "mouth": "입과 치아",
+    "ears": "귀",
+    "horns": "뿔",
+    "skin_conditions": "피부 상태",
+    "face_skin_material": "얼굴 피부 재질",
+    "face_surface_pattern": "피부 무늬",
+    "body_type": "체형",
+    "left_arm": "왼팔",
+    "right_arm": "오른팔",
+    "left_leg": "왼다리",
+    "right_leg": "오른다리",
+    "hair": "머리카락 / 머리 장식",
+    "accessories": "액세서리와 무늬",
+    "rendering_style": "그림 스타일"
+  },
+  "toolbar": {
+    "shuffle": "무작위",
+    "generate": "캐릭터 생성",
+    "generating": "생성 중…"
+  },
+  "preview": {
+    "generating": "AI 인플루언서를 만드는 중…",
+    "emptyTitle": "여기에 AI 인플루언서가 나타나요.",
+    "emptySubtitleLine1": "나만의 AI 인플루언서를",
+    "emptySubtitleLine2": "처음부터 디자인해 보세요",
+    "save": "저장",
+    "altGenerated": "생성된 AI 캐릭터"
+  },
+  "tags": {
+    "showMore": "더 보기",
+    "hide": "접기"
+  },
+  "customPrompt": {
+    "placeholder": "추가하고 싶은 내용을 적어 주세요… 예: 네온 사이버펑크 조명, 강렬한 그림자"
+  },
+  "gallery": {
+    "title": "생성 결과",
+    "countSuffix": "개",
+    "emptyText": "생성한 캐릭터가\n여기에 나타나요",
+    "altPrefix": "캐릭터",
+    "download": "다운로드"
+  },
+  "errors": {
+    "generationFailed": "생성에 실패했어요. 다시 시도해 주세요."
+  }
+}

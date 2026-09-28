@@ -1,0 +1,71 @@
+{
+  "tabs": {
+    "image": "이미지 스튜디오",
+    "layers": "레이어 스튜디오",
+    "video": "영상 스튜디오",
+    "audio": "오디오 스튜디오",
+    "clipping": "AI 클리핑",
+    "motion-control": "모션 컨트롤",
+    "vibe-motion": "바이브 모션",
+    "lipsync": "립싱크",
+    "body-swap": "바디 스왑",
+    "cinema": "시네마 스튜디오",
+    "marketing": "마케팅 스튜디오",
+    "workflows": "워크플로",
+    "agents": "에이전트",
+    "design-agent": "디자인 에이전트",
+    "apps": "앱 둘러보기",
+    "ai-influencer": "AI 인플루언서"
+  },
+  "categories": {
+    "images": "이미지",
+    "video": "영상",
+    "audio": "오디오",
+    "agents-automation": "에이전트·자동화"
+  },
+  "shell": {
+    "brand": "OpenGenerativeAI",
+    "studioFallback": "스튜디오",
+    "expandSidebar": "사이드바 펼치기",
+    "collapseSidebar": "사이드바 접기",
+    "toggleNavMenu": "메뉴 열기/닫기",
+    "studioNavigation": "스튜디오 메뉴",
+    "toolsSuffix": "도구",
+    "settings": "설정",
+    "dropHere": "여기에 파일을 놓으세요",
+    "dropHereHint": "이미지, 영상, 오디오 파일",
+    "vadooPromo": "AI 이미지·영상 → 유튜브 쇼츠·틱톡 자동 업로드로 수익 만들기 ↗",
+    "dismiss": "닫기"
+  },
+  "settingsModal": {
+    "title": "설정",
+    "subtitle": "AI 스튜디오 설정과 인증을 관리해요.",
+    "activeApiKey": "사용 중인 API 키",
+    "changeKey": "키 변경",
+    "close": "닫기",
+    "managedKey": "강사님 키로 연결되어 있어요",
+    "leaveClass": "수업에서 나가기"
+  },
+  "notifications": {
+    "generating": "생성 중",
+    "generationComplete": "- 생성 완료",
+    "generationFailed": "- 생성 실패",
+    "resultReady": "결과가 준비됐어요.",
+    "open": "열기 →",
+    "openResult": "{label} 결과 열기",
+    "dismissNotification": "알림 닫기",
+    "ariaLabel": "생성 진행 상황과 알림"
+  },
+  "apiKeyModal": {
+    "title": "Open Generative AI",
+    "subtitlePrefix": "생성을 시작하려면",
+    "subtitleSuffix": "API 키를 입력하세요",
+    "close": "닫기",
+    "label": "API 액세스 키",
+    "placeholder": "여기에 키를 붙여넣으세요...",
+    "missingKeyError": "API 키를 입력해 주세요",
+    "submit": "시작하기",
+    "needKey": "키가 없나요?",
+    "getOneFree": "무료로 발급받기 →"
+  }
+}
