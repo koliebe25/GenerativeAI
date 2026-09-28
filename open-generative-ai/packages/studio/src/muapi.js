@@ -366,11 +366,59 @@ export async function generateAudio(apiKey, params) {
     return submitAndPoll(endpoint, payload, apiKey, params.onRequestId, 900);
 }
 
+// Uploads go through the host app's /api proxy, and hosted deployments (e.g.
+// Vercel Functions) reject request bodies over ~4.5 MB. Large photos are
+// scaled down in the browser first; other oversized files get a clear error.
+const UPLOAD_SAFE_BYTES = 4 * 1024 * 1024;
+const SHRINKABLE_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+async function shrinkImageForUpload(file) {
+    if (typeof document === 'undefined' || typeof createImageBitmap !== 'function') return file;
+    if (!file || file.size <= UPLOAD_SAFE_BYTES || !SHRINKABLE_IMAGE_TYPES.includes(file.type)) return file;
+
+    let bitmap;
+    try {
+        bitmap = await createImageBitmap(file);
+    } catch {
+        return file;
+    }
+    const keepAlpha = file.type === 'image/png';
+    const outType = keepAlpha ? 'image/png' : 'image/jpeg';
+    let maxSide = Math.min(4096, Math.max(bitmap.width, bitmap.height));
+    try {
+        for (let attempt = 0; attempt < 6; attempt++) {
+            const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+            canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+            canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+            const blob = await new Promise((done) => canvas.toBlob(done, outType, keepAlpha ? undefined : 0.9));
+            if (blob && blob.size <= UPLOAD_SAFE_BYTES) {
+                const name = keepAlpha ? file.name : `${file.name.replace(/\.(png|webp|jpe?g)$/i, '')}.jpg`;
+                return new File([blob], name, { type: outType, lastModified: Date.now() });
+            }
+            maxSide = Math.round(maxSide * 0.75);
+        }
+    } finally {
+        bitmap.close?.();
+    }
+    return file;
+}
+
+function uploadTooLargeMessage() {
+    const korean = typeof window !== 'undefined' && (
+        document.documentElement.lang === 'ko' || window.location.pathname.startsWith('/ko')
+    );
+    return korean
+        ? '파일이 너무 커요. 이 서버에는 약 4MB까지 올릴 수 있어요. 더 작은 파일로 다시 올려 주세요.'
+        : 'This file is too large for this server (about 4 MB max). Please upload a smaller file.';
+}
+
 export function uploadFile(apiKey, file, onProgress) {
-    return new Promise((resolve, reject) => {
+    return shrinkImageForUpload(file).then((uploadable) => new Promise((resolve, reject) => {
         const url = `${BASE_URL}/api/v1/upload_file`;
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('file', uploadable);
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', url);
@@ -403,6 +451,8 @@ export function uploadFile(apiKey, file, onProgress) {
                 } catch (e) {
                     reject(new Error('Failed to parse upload response'));
                 }
+            } else if (xhr.status === 413) {
+                reject(new Error(uploadTooLargeMessage()));
             } else {
                 let detail = xhr.statusText;
                 try {
@@ -419,7 +469,7 @@ export function uploadFile(apiKey, file, onProgress) {
         xhr.onerror = () => reject(new Error('Network error during file upload'));
         xhr.ontimeout = () => reject(new Error('File upload timed out. Please try again.'));
         xhr.send(formData);
-    });
+    }));
 }
 
 export async function getUserBalance(apiKey) {
