@@ -6,8 +6,9 @@
 
 const FILM_DURATION = 30.0;
 const SHOTS = [], TRANS = [], CUES = [];
-const shot = (id, start, end, draw) => SHOTS.push({ id, start, end, dur: end - start, draw });
-const trans = (at, dur, type, o = {}) => TRANS.push({ at, dur, type, ...o });
+// shots/transitions register only for their own format; sound cues are shared by both cuts
+const shot = (id, start, end, draw, fmt = 'landscape') => { if (fmt === FORMAT) SHOTS.push({ id, start, end, dur: end - start, draw }); };
+const trans = (at, dur, type, o = {}, fmt = 'landscape') => { if (fmt === FORMAT) TRANS.push({ at, dur, type, ...o }); };
 const cue = (t, sfx, o = {}) => CUES.push({ t: +t.toFixed(3), sfx, ...o });
 
 let SOURCE_TEXT = null, SOURCE_LINES = 0;
@@ -807,7 +808,8 @@ const TRANSITION_FX = {
     const on = clamp(p / 0.5), off = clamp((p - 0.5) / 0.5);
     ctx.drawImage(p < 0.5 ? A : B, 0, 0);
     const path = [];
-    for (let i = 0; i <= 7; i++) { const y = -120 + i * 205; path.push(i % 2 ? [W + 200, y] : [-200, y]); }
+    const rows = Math.ceil((H + 240) / 205);
+    for (let i = 0; i <= rows; i++) { const y = -120 + i * 205; path.push(i % 2 ? [W + 200, y] : [-200, y]); }
     const rs = resample(path, 24);
     const seg = p < 0.5 ? partial(rs, 0, E.inOutC(on)) : partial(rs, E.inOutC(off), 1);
     if (seg.length > 1) inkStroke(ctx, seg, { w: 450, color: PAL.clay, taper: 0.02, seed: 21, pressure: 0.12 });
@@ -827,5 +829,6 @@ function drawFilm(ctx, T) {
   } else {
     renderShot(ctx, shotAt(T), T);
   }
+  if (SUBS_LANG && typeof drawSubtitles === 'function') drawSubtitles(ctx, T);
   paperGrain(ctx, 1);
 }

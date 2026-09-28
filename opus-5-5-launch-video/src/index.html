@@ -10,6 +10,8 @@
   @font-face { font-family: "Anthropic Serif"; src: url("../fonts/AnthropicSerif_Italic.woff2") format("woff2"); font-weight: 300 800; font-style: italic; }
   @font-face { font-family: "Anthropic Sans"; src: url("../fonts/AnthropicSans_Roman.woff2") format("woff2"); font-weight: 300 800; }
   @font-face { font-family: "Anthropic Mono"; src: url("../fonts/AnthropicMono_Roman.woff2") format("woff2"); font-weight: 300 800; }
+  /* Korean subtitles: Pretendard (SIL OFL 1.1), installed by `npm install` */
+  @font-face { font-family: "Pretendard Variable"; src: url("../node_modules/pretendard/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations"); font-weight: 45 920; }
   html, body { margin: 0; height: 100%; background: #141413; overflow: hidden; }
   canvas { position: absolute; inset: 0; margin: auto; width: min(100vw, 177.78vh); height: min(56.25vw, 100vh); }
   #hud { position: fixed; left: 12px; bottom: 10px; color: #b0aea5; font: 12px/1.4 ui-monospace, monospace; }
@@ -23,6 +25,8 @@
 <script src="brand.js"></script>
 <script src="clawd.js"></script>
 <script src="scenes.js"></script>
+<script src="scenes-portrait.js"></script>
+<script src="subtitles.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

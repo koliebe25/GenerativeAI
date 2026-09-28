@@ -5,7 +5,11 @@
  * ==========================================================================*/
 'use strict';
 
-const W = 1920, H = 1080, FPS = 30;
+// ?format=portrait → 1080×1920 for Shorts / Reels (default: 1920×1080); ?subs=ko → burned-in Korean subtitles
+const QUERY = new URLSearchParams(location.search);
+const FORMAT = QUERY.get('format') === 'portrait' ? 'portrait' : 'landscape';
+const SUBS_LANG = QUERY.get('subs') || '';
+const W = FORMAT === 'portrait' ? 1080 : 1920, H = FORMAT === 'portrait' ? 1920 : 1080, FPS = 30;
 const BOIL_FPS = 10;              // line "boil": drawings are re-inked 10x per second
 
 // Anthropic brand swatches (pulled from anthropic.com CSS variables)
@@ -22,6 +26,7 @@ const FONT = {
   serif: '"Anthropic Serif", "Tiempos Headline", Georgia, serif',
   sans: '"Anthropic Sans", "Styrene B", "Helvetica Neue", Arial, sans-serif',
   mono: '"Anthropic Mono", "JetBrains Mono", Menlo, monospace',
+  kr: '"Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif',   // Hangul (OFL)
 };
 
 /* ---------------------------------------------------------------- math --- */

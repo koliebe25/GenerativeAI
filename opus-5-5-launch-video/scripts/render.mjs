@@ -5,6 +5,8 @@
  *   node scripts/render.mjs --stills 0.5,3  → PNG stills at given seconds (out/stills)
  *   node scripts/render.mjs --sheet 0:30:1  → contact sheet, one frame per second (out/sheet.png)
  *   node scripts/render.mjs --cues          → out/cues.json (sound cues for scripts/soundtrack.py)
+ *   node scripts/render.mjs --format portrait --subs ko   → 1080×1920 Shorts/Reels cut with Korean subtitles
+ *   node scripts/render.mjs --subs ko --srt → out/captions-ko.srt (same timings in both formats)
  * Options: --workers N  --crf N  --out file.mp4  --keep (keep PNG frames)
  * ==========================================================================*/
 import { chromium } from 'playwright-core';
@@ -20,6 +22,10 @@ const OUT = path.join(ROOT, 'out');
 const args = process.argv.slice(2);
 const opt = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 ? (args[i + 1] ?? true) : d; };
 const has = k => args.includes('--' + k);
+const FORMAT = opt('format', 'landscape') === 'portrait' ? 'portrait' : 'landscape';
+const SUBS = has('subs') ? String(opt('subs')) : '';
+const VIEW = FORMAT === 'portrait' ? { width: 1080, height: 1920 } : { width: 1920, height: 1080 };
+const TAG = FORMAT === 'portrait' ? `-9x16${SUBS ? '-' + SUBS : ''}` : (SUBS ? '-' + SUBS : '');
 
 const CHROME = process.env.CHROME_PATH || [
   '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
@@ -46,10 +52,11 @@ function serve() {
 }
 
 async function openPage(browser, port) {
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({ viewport: VIEW, deviceScaleFactor: 1 });
   page.on('pageerror', e => console.error('[page error]', e.message));
   page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.error('[console]', m.text()); });
-  await page.goto(`http://127.0.0.1:${port}/src/index.html`);
+  const q = new URLSearchParams({ format: FORMAT, ...(SUBS ? { subs: SUBS } : {}) });
+  await page.goto(`http://127.0.0.1:${port}/src/index.html?${q}`);
   await page.waitForFunction(() => window.__READY__ === true, null, { timeout: 60000 });
   return page;
 }
@@ -74,13 +81,21 @@ async function main() {
     await browser.close(); srv.close(); return;
   }
 
+  if (has('srt')) {                        // subtitle file with the same timings as the burned-in captions
+    const srt = await probe.evaluate(() => window.SRT());
+    const name = path.join(OUT, `captions-${SUBS || 'ko'}.srt`);
+    fs.writeFileSync(name, srt);
+    console.log('wrote', path.relative(ROOT, name));
+    await browser.close(); srv.close(); return;
+  }
+
   if (has('stills')) {
     const dir = path.join(OUT, 'stills'); fs.mkdirSync(dir, { recursive: true });
     const times = String(opt('stills')).split(',').map(Number);
     for (const t of times) {
       const f = Math.round(t * V.fps);
       const buf = await grab(probe, f);
-      const name = path.join(dir, `t_${t.toFixed(2).padStart(6, '0')}.png`);
+      const name = path.join(dir, `t${TAG}_${t.toFixed(2).padStart(6, '0')}.png`);
       fs.writeFileSync(name, buf); console.log('wrote', path.relative(ROOT, name));
     }
     await browser.close(); srv.close(); return;
@@ -96,7 +111,7 @@ async function main() {
       for (let t = a; t < Math.min(b, V.duration) - 1e-6; t += step) frames.push(Math.round(t * V.fps));
     }
   }
-  const dir = path.join(OUT, has('sheet') ? 'sheetframes' : 'frames');
+  const dir = path.join(OUT, (has('sheet') ? 'sheetframes' : 'frames') + TAG);
   fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
 
   const workers = Math.max(1, Number(opt('workers', Math.min(4, os.cpus().length))));
@@ -123,14 +138,14 @@ async function main() {
     const rows = Math.ceil(frames.length / cols);
     const outPng = path.join(OUT, opt('name', 'sheet') + '.png');
     execFileSync(FFMPEG, ['-y', '-loglevel', 'error', '-framerate', '1', '-i', path.join(dir, '%05d.png'),
-      '-vf', `scale=384:216:flags=lanczos,tile=${cols}x${rows}:padding=4:color=0x141413`,
+      '-vf', `scale=${FORMAT === 'portrait' ? '216:384' : '384:216'}:flags=lanczos,tile=${cols}x${rows}:padding=4:color=0x141413`,
       '-frames:v', '1', outPng]);
     console.log('wrote', path.relative(ROOT, outPng), `(${frames.length} frames)`);
     return;
   }
 
   // ---- encode
-  const outFile = path.resolve(ROOT, opt('out', 'out/opus-5-5-launch.mp4'));
+  const outFile = path.resolve(ROOT, opt('out', `out/opus-5-5-launch${TAG}.mp4`));
   const wav = path.join(OUT, 'soundtrack.wav');
   const crf = String(opt('crf', 28));             // CRF 28 + veryslow + tune animation ≈ 7 MB for 30 s
   const ff = ['-y', '-loglevel', 'error', '-stats', '-framerate', String(V.fps), '-i', path.join(dir, '%05d.png')];

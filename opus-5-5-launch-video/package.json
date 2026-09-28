@@ -9,9 +9,12 @@
     "cues": "node scripts/render.mjs --cues",
     "audio": "python3 scripts/soundtrack.py",
     "render": "node scripts/render.mjs",
-    "build": "npm run cues && npm run audio && npm run render"
+    "build": "npm run cues && npm run audio && npm run render",
+    "render:shorts-ko": "node scripts/render.mjs --format portrait --subs ko",
+    "captions": "node scripts/render.mjs --subs ko --srt"
   },
   "dependencies": {
-    "playwright-core": "1.56.1"
+    "playwright-core": "1.56.1",
+    "pretendard": "^1.3.9"
   }
 }
