@@ -1,0 +1,4 @@
+node_modules/
+out/
+# Anthropic's brand fonts are proprietary: fetched locally by `npm run fetch-assets`, never committed
+fonts/*.woff2

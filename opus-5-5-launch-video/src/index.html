@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing Claude Opus 5.5 — hand-drawn launch film</title>
+<style>
+  @font-face { font-family: "Anthropic Serif"; src: url("../fonts/AnthropicSerif_Roman.woff2") format("woff2"); font-weight: 300 800; font-style: normal; }
+  @font-face { font-family: "Anthropic Serif"; src: url("../fonts/AnthropicSerif_Italic.woff2") format("woff2"); font-weight: 300 800; font-style: italic; }
+  @font-face { font-family: "Anthropic Sans"; src: url("../fonts/AnthropicSans_Roman.woff2") format("woff2"); font-weight: 300 800; }
+  @font-face { font-family: "Anthropic Mono"; src: url("../fonts/AnthropicMono_Roman.woff2") format("woff2"); font-weight: 300 800; }
+  html, body { margin: 0; height: 100%; background: #141413; overflow: hidden; }
+  canvas { position: absolute; inset: 0; margin: auto; width: min(100vw, 177.78vh); height: min(56.25vw, 100vh); }
+  #hud { position: fixed; left: 12px; bottom: 10px; color: #b0aea5; font: 12px/1.4 ui-monospace, monospace; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="hud"></div>
+<script src="assets.js"></script>
+<script src="engine.js"></script>
+<script src="brand.js"></script>
+<script src="clawd.js"></script>
+<script src="scenes.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

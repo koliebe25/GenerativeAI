@@ -1,0 +1,17 @@
+{
+  "name": "opus-5-5-launch-video",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Hand-drawn canvas launch film for Claude Opus 5.5, rendered frame-by-frame in headless Chromium",
+  "scripts": {
+    "fetch-assets": "node scripts/fetch-assets.mjs",
+    "cues": "node scripts/render.mjs --cues",
+    "audio": "python3 scripts/soundtrack.py",
+    "render": "node scripts/render.mjs",
+    "build": "npm run cues && npm run audio && npm run render"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
