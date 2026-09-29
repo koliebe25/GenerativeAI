@@ -1,5 +1,5 @@
 import StandaloneShell from '@/components/StandaloneShell';
-import { getClassConfig } from '@/lib/classAccess';
+import { getShellClassProps } from '@/lib/classAccess';
 
 export const metadata = {
   title: 'Studio — Open Generative AI',
@@ -9,5 +9,5 @@ export const metadata = {
 // app/studio/[[...slug]]/page.js, only passing `locale="zh"`. A future
 // locale repeats this file under app/<locale>/studio/[[...slug]]/page.js.
 export default function ZhStudioPage() {
-  return <StandaloneShell locale="zh" managedKey={getClassConfig().managedKey} />;
+  return <StandaloneShell locale="zh" {...getShellClassProps()} />;
 }

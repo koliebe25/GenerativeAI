@@ -5,8 +5,11 @@
 // class passcode guards every page and API route so a leaked URL cannot spend
 // the instructor's credits.
 //
-//   MUAPI_API_KEY   instructor's Muapi access key (server-side only)
-//   CLASS_PASSCODE  code students type once per browser to enter
+//   MUAPI_API_KEY      instructor's Muapi access key (server-side only)
+//   CLASS_PASSCODE     code students type once per browser to enter
+//   CLASS_HIDDEN_TABS  optional comma-separated studio ids to remove from the
+//                      menu, e.g. "body-swap,ai-influencer" (navigation only,
+//                      not an access control)
 //
 // CLASS_PASSCODE alone turns on just the gate (students then bring their own
 // key). MUAPI_API_KEY alone is ignored on purpose: injecting a paid key into a
@@ -25,12 +28,23 @@ export const CLASS_SESSION_SECONDS = 60 * 60 * 12; // one class day
 export function getClassConfig() {
     const apiKey = (process.env.MUAPI_API_KEY || '').trim();
     const passcode = (process.env.CLASS_PASSCODE || '').trim();
+    const hiddenTabs = (process.env.CLASS_HIDDEN_TABS || '')
+        .split(',')
+        .map((tabId) => tabId.trim())
+        .filter(Boolean);
     return {
         apiKey,
         passcode,
+        hiddenTabs,
         gateEnabled: Boolean(passcode),
         managedKey: Boolean(apiKey && passcode),
     };
+}
+
+// Props the studio pages pass to StandaloneShell (never includes secrets).
+export function getShellClassProps() {
+    const { managedKey, hiddenTabs } = getClassConfig();
+    return { managedKey, hiddenTabs };
 }
 
 async function sha256Hex(text) {

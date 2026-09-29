@@ -300,7 +300,8 @@ const persistNotifications = (notifications) => {
 
 // managedKey: class mode (see lib/classAccess.js) — the server holds the
 // instructor's key, so the browser only ever sees a placeholder.
-export default function StandaloneShell({ locale = 'en', managedKey = false }) {
+// hiddenTabs: studio ids removed from navigation (CLASS_HIDDEN_TABS).
+export default function StandaloneShell({ locale = 'en', managedKey = false, hiddenTabs = [] }) {
   const params = useParams();
   const router = useRouter();
   const slug = params?.slug || [];
@@ -334,7 +335,7 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
   const { id: urlWorkflowId } = getWorkflowInfo();
 
   // Initialize activeTab from URL slug/params or default to 'image'
-  const getInitialTab = () => {
+  const getTabFromUrl = () => {
     if (idFromParams || slug.includes('workflow')) return 'workflows';
     if (slug.includes('agents')) return 'agents';
     if (slug.includes('design-agent')) return 'design-agent';
@@ -342,6 +343,10 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
     const firstSegment = slug[0];
     if (firstSegment && TABS.find(t => t.id === firstSegment)) return firstSegment;
     return 'image';
+  };
+  const getInitialTab = () => {
+    const tabId = getTabFromUrl();
+    return hiddenTabs.includes(tabId) ? 'image' : tabId;
   };
   
   const [apiKey, setApiKey] = useState(null);
@@ -460,23 +465,21 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
   }, []);
 
   const makeSuccessCallback = useCallback((tabId) => (data) => {
-    const tab = TABS.find(t => t.id === tabId);
     pushNotification({
       type: 'success',
       tabId,
-      label: tab?.label || tabId,
+      label: tabLabel(tabId),
       resultUrl: data?.url || null,
     });
-  }, [pushNotification]);
+  }, [pushNotification, tabLabel]);
 
   const makeErrorCallback = useCallback((tabId) => (errorOrMessage) => {
-    const tab = TABS.find(t => t.id === tabId);
     const message = typeof errorOrMessage === 'string'
       ? errorOrMessage
       : (errorOrMessage?.message || errorOrMessage?.error || String(errorOrMessage || 'Generation failed'));
-    pushNotification({ type: 'error', tabId, label: tab?.label || tabId, message });
+    pushNotification({ type: 'error', tabId, label: tabLabel(tabId), message });
     if (apiKey) void fetchBalance(apiKey);
-  }, [apiKey, fetchBalance, pushNotification]);
+  }, [apiKey, fetchBalance, pushNotification, tabLabel]);
 
   const makeGenerationStartCallback = useCallback((tabId) => () => {
     setGenerationCounts((previous) => ({
@@ -520,7 +523,7 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
       const localeAwarePath = rootPath && path.startsWith(rootPath) ? path.slice(rootPath.length) : path;
       const segments = localeAwarePath.split('/').filter(Boolean);
       const tabId = segments[1] || 'image';
-      if (TABS.find(t => t.id === tabId)) {
+      if (TABS.find(t => t.id === tabId) && !hiddenTabs.includes(tabId)) {
         setActiveTab(tabId);
       }
     };
@@ -529,9 +532,10 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
   }, [locale]);
 
   const handleTabChange = useCallback((tabId) => {
+    if (hiddenTabs.includes(tabId)) return;
     window.history.pushState(null, '', studioPath(tabId));
     setActiveTab(tabId);
-  }, [studioPath]);
+  }, [studioPath, hiddenTabs]);
 
   const handleOpenNotification = useCallback((notification) => {
     handleTabChange(notification.tabId);
@@ -592,6 +596,16 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
       document.cookie = `muapi_key=${stored}; path=/; max-age=31536000; SameSite=Lax`;
     }
   }, [fetchBalance, managedKey]);
+
+  // Hide images that fail to load instead of showing broken-image icons and
+  // alt text (some upstream sample assets on cdn.muapi.ai now return 403).
+  useEffect(() => {
+    const hideBrokenImage = (event) => {
+      if (event.target instanceof HTMLImageElement) event.target.style.visibility = 'hidden';
+    };
+    document.addEventListener('error', hideBrokenImage, true);
+    return () => document.removeEventListener('error', hideBrokenImage, true);
+  }, []);
 
   const handleKeySave = useCallback((key) => {
     localStorage.setItem(STORAGE_KEY, key);
@@ -856,6 +870,7 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
             <nav aria-label={copy.shell.studioNavigation} className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-none py-2 px-2">
               <div className="space-y-1">
                 {NAVIGATION_CATEGORIES.map((category) => {
+                  if (category.tabIds.every((tabId) => hiddenTabs.includes(tabId))) return null;
                   const isCategoryActive = activeCategory?.id === category.id;
                   const isCollapsed = isSidebarCollapsed && !isMobileOpen;
                   const isCategoryOpen = !isCollapsed && expandedCategoryId === category.id;
@@ -922,7 +937,7 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
                         >
                           {category.tabIds.map((tabId) => {
                             const tab = TABS.find((item) => item.id === tabId);
-                            if (!tab) return null;
+                            if (!tab || hiddenTabs.includes(tab.id)) return null;
                             const isActive = activeTab === tab.id;
 
                             return (
@@ -956,7 +971,7 @@ export default function StandaloneShell({ locale = 'en', managedKey = false }) {
                 })}
               </div>
 
-              {EXPLORE_APPS_TAB && (
+              {EXPLORE_APPS_TAB && !hiddenTabs.includes(EXPLORE_APPS_TAB.id) && (
                 <div className="mt-3 pt-3 border-t border-white/[0.07]">
                   <a
                     href={studioPath(EXPLORE_APPS_TAB.id)}
