@@ -1,0 +1,49 @@
+{
+  "cameraOverlay": {
+    "eyebrow": "시네마 스튜디오",
+    "title": "카메라 설정",
+    "description": "카메라, 렌즈, 초점 거리, 심도를 골라 일관된 영화 같은 분위기를 만들어 보세요.",
+    "close": "닫기",
+    "closeAria": "카메라 설정 닫기",
+    "columns": {
+      "camera": "카메라",
+      "lens": "렌즈",
+      "focalLength": "초점 거리",
+      "aperture": "조리개"
+    }
+  },
+  "dropdowns": {
+    "aspectRatio": "화면 비율",
+    "resolution": "해상도"
+  },
+  "actions": {
+    "copyPrompt": "프롬프트 복사",
+    "promptCopied": "프롬프트를 복사했어요",
+    "copyImage": "이미지 복사",
+    "imageCopied": "이미지를 복사했어요",
+    "download": "다운로드",
+    "delete": "삭제",
+    "deleteConfirm": "이 결과물을 삭제할까요?"
+  },
+  "card": {
+    "noPrompt": "프롬프트 없음",
+    "badge": "시네마 스튜디오",
+    "historyItemAlt": "기록 {index}"
+  },
+  "empty": {
+    "kicker": "지금 바로 만들어 보세요",
+    "title": "시네마 스튜디오",
+    "description": "예산이 무한하다면 무엇을 찍고 싶나요? 카메라·조명·렌즈를 골라 고급 영화 장면을 만들어 보세요."
+  },
+  "prompt": {
+    "placeholder": "만들고 싶은 영화 장면을 설명해 주세요...",
+    "generating": "생성 중...",
+    "generate": "촬영"
+  },
+  "fullscreen": {
+    "alt": "전체 화면 미리보기"
+  },
+  "referenceImage": {
+    "alt": "참고 이미지"
+  }
+}

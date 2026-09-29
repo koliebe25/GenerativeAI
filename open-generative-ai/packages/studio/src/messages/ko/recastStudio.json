@@ -1,0 +1,68 @@
+{
+  "labels": {
+    "video": "영상",
+    "characterImage": "캐릭터 이미지",
+    "library": "보관함",
+    "orientationPrefix": "방향:"
+  },
+  "buttons": {
+    "use": "사용",
+    "download": "다운로드",
+    "delete": "삭제",
+    "swapBody": "바디 스왑",
+    "swapping": "바꾸는 중..."
+  },
+  "titles": {
+    "clickToClear": "{fileName} — 클릭해서 지우기",
+    "uploadFile": "{label} 파일을 올리거나 끌어다 놓으세요",
+    "enlargePreview": "미리보기 크게 보기",
+    "deleteFromLibrary": "보관함에서 삭제"
+  },
+  "assetLibrary": {
+    "header": "소재 보관함",
+    "tabs": {
+      "videos": "영상",
+      "images": "이미지",
+      "results": "결과물"
+    },
+    "empty": "소재가 없어요"
+  },
+  "dropdowns": {
+    "model": "모델",
+    "selectModel": "모델 선택",
+    "aspectRatio": "화면 비율",
+    "orientation": "방향",
+    "orientationImage": "이미지",
+    "orientationVideo": "영상",
+    "orientationImageDesc": "이미지 방향 사용 (영상 최대 10초)",
+    "orientationVideoDesc": "영상 방향 사용 (영상 최대 30초)"
+  },
+  "empty": {
+    "titleLine1": "지금 바로 만들어 보세요",
+    "titleLine2": "바디 스왑 스튜디오",
+    "description": "영상 클립과 바꿀 캐릭터 이미지를 고르면, 영상 속 인물을 자연스럽게 바꿔 줘요."
+  },
+  "placeholders": {
+    "prompt": "선택 사항 — 동작이나 장면을 설명해 주세요..."
+  },
+  "badges": {
+    "bodySwap": "바디 스왑"
+  },
+  "confirm": {
+    "deleteGenerated": "이 결과물을 삭제할까요?"
+  },
+  "errors": {
+    "videoTooLarge": "영상은 50MB까지 올릴 수 있어요.",
+    "imageTooLarge": "이미지는 10MB까지 올릴 수 있어요.",
+    "missingVideo": "먼저 원본 영상을 올려 주세요.",
+    "missingImage": "먼저 캐릭터 이미지를 올려 주세요.",
+    "videoUploadFailed": "영상 업로드 실패: {message}",
+    "imageUploadFailed": "이미지 업로드 실패: {message}",
+    "generationFailed": "바디 스왑 생성에 실패했어요"
+  },
+  "defaults": {
+    "selectedVideo": "선택한 영상",
+    "selectedImage": "선택한 이미지",
+    "resultVideo": "결과 영상"
+  }
+}

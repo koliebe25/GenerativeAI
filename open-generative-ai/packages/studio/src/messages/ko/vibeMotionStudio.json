@@ -1,0 +1,59 @@
+{
+  "loading": {
+    "remixing": "모션 그래픽을 리믹스하는 중…",
+    "generating": "모션 그래픽을 만드는 중…",
+    "backend": "Modal에서 React/Remotion으로 렌더링 중"
+  },
+  "card": {
+    "modeEdit": "✏ 편집",
+    "modeGenerated": "✦ 생성",
+    "download": "다운로드",
+    "remixThis": "이 결과물 리믹스하기",
+    "legacyRemixUnavailable": "예전 방식으로 만든 결과물이라 리믹스할 수 없어요. 새 모션 그래픽을 만들면 편집할 수 있어요.",
+    "delete": "삭제",
+    "confirmDelete": "이 결과물을 삭제할까요?",
+    "noPrompt": "프롬프트 없음",
+    "tag": "바이브 모션"
+  },
+  "mobileActions": {
+    "download": "다운로드",
+    "remix": "리믹스",
+    "delete": "삭제"
+  },
+  "empty": {
+    "titleLine1": "지금 바로 만들어 보세요",
+    "titleLine2": "바이브 모션 스튜디오",
+    "description": "글로 설명하면 움직이는 모션 그래픽을 만들어 줘요 — 키네틱 타이포그래피, 데이터 차트, 로고 등장 효과 등."
+  },
+  "modeToggle": {
+    "generate": "생성",
+    "edit": "편집"
+  },
+  "editBanner": {
+    "editingPrefix": "편집 중:",
+    "selectSource": "갤러리에서 편집할 원본 결과물을 고르세요",
+    "cancelEdit": "편집 모드 끝내기"
+  },
+  "placeholder": {
+    "edit": "바꿀 내용을 설명해 주세요 — '배경을 짙은 남색으로, 막대를 금색으로, 반짝이 효과 추가…'",
+    "generate": "모션 그래픽을 설명해 주세요 — '빛나는 막대그래프와 숫자가 올라가는 매출 대시보드 애니메이션'"
+  },
+  "controls": {
+    "aspectRatio": "화면 비율",
+    "duration": "길이",
+    "sourcePrefix": "원본:",
+    "pickSource": "원본 선택…",
+    "sourceGeneration": "원본 결과물",
+    "shortcutHint": "Ctrl+Enter로 실행"
+  },
+  "errors": {
+    "staleEditUnavailable": "이 결과물은 리믹스할 수 없어요 — 애니메이션 코드가 서버에 저장되지 않았어요. 먼저 새 모션 그래픽을 만든 뒤 그 결과물을 리믹스해 주세요.",
+    "generationFailed": "바이브 모션 생성에 실패했어요"
+  },
+  "generateButton": {
+    "remixing": "리믹스 중...",
+    "generating": "생성 중...",
+    "remix": "리믹스",
+    "generate": "생성"
+  }
+}

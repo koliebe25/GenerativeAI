@@ -1,0 +1,204 @@
+{
+  "common": {
+    "model": "모델",
+    "reset": "초기화"
+  },
+  "panels": {
+    "layer-decomposition": "레이어 분리",
+    "upscale": "업스케일",
+    "color-grading": "색보정",
+    "remove-bg": "배경 제거",
+    "expand-crop": "이미지 확장",
+    "tools": "도구"
+  },
+  "menuItems": {
+    "layer-decomposition": "레이어 분리",
+    "upscale": "업스케일",
+    "color-grading": "색보정",
+    "remove-bg": "배경 제거",
+    "expand-crop": "확장 · 아웃페인팅",
+    "edit-text": "글자 편집",
+    "enhancer": "화질 개선",
+    "relight": "조명 바꾸기",
+    "angles": "각도 바꾸기",
+    "new": "새 기능"
+  },
+  "tools": {
+    "uploadOrChangeImage": "이미지 올리기 또는 바꾸기",
+    "clearMarkedRegions": "표시한 영역 지우기",
+    "runSelectionEdit": "선택 영역 편집 실행",
+    "line": "선",
+    "arrow": "화살표",
+    "rectangle": "사각형",
+    "circle": "원",
+    "customColor": "색 직접 고르기",
+    "undoStroke": "획 되돌리기",
+    "redoStroke": "획 다시 하기",
+    "clearDrawings": "그림 모두 지우기",
+    "selectPointerTool": "선택 도구",
+    "panTool": "화면 이동 도구",
+    "lassoEdit": "올가미 편집",
+    "regionalEdit": "영역 편집",
+    "highlightMarkerPen": "형광펜",
+    "eraserTool": "지우개",
+    "shapes": "도형 (R)",
+    "resetZoomPan": "확대·이동 초기화",
+    "addImage": "이미지 추가",
+    "runLayerDecomposition": "레이어 분리 실행",
+    "backToTools": "도구로 돌아가기",
+    "closePanel": "패널 닫기",
+    "regionalPromptPlaceholder": "프롬프트를 입력하세요..."
+  },
+  "sample": {
+    "clickToLoad": "클릭해서 레이어 분리 예시 불러오기",
+    "original": "원본",
+    "layersCount": "레이어 5개",
+    "try": "해 보기 →",
+    "clickToExplore": "클릭해서 예시 살펴보기"
+  },
+  "settings": {
+    "heading": "설정",
+    "resolution": "해상도",
+    "layers": "레이어"
+  },
+  "carousel": {
+    "heading": "레이어 넘겨보기",
+    "soloActive": "선택 레이어만",
+    "stackMode": "겹쳐 보기",
+    "viewOnlyActive": "선택한 레이어만 보기",
+    "downloadAll": "모두 다운로드",
+    "previousLayer": "이전 레이어",
+    "nextLayer": "다음 레이어",
+    "toggleVisibility": "보이기/숨기기",
+    "downloadThisLayer": "이 레이어 다운로드",
+    "save": "저장",
+    "layerLabel": "레이어 {n}",
+    "seedreamDecomposed": "Seedream 분리 결과"
+  },
+  "colorGrading": {
+    "colorCorrect": {
+      "heading": "색 보정",
+      "info": "색온도, 색조, 채도, 대비, 스플릿 톤",
+      "reset": "색 보정 초기화"
+    },
+    "softenDetails": {
+      "heading": "디테일 부드럽게",
+      "info": "반경과 디테일 부드럽기",
+      "reset": "디테일 부드럽게 초기화"
+    },
+    "bloom": {
+      "heading": "블룸",
+      "info": "빛 번짐과 혼합 모드",
+      "reset": "블룸 초기화"
+    },
+    "halation": {
+      "heading": "헐레이션",
+      "info": "밝은 부분 주변에 생기는 필름 특유의 붉은 빛",
+      "reset": "헐레이션 초기화"
+    },
+    "lensInstructions": {
+      "heading": "렌즈 효과",
+      "info": "비네팅과 렌즈 왜곡",
+      "reset": "렌즈 효과 초기화"
+    },
+    "exposure": {
+      "heading": "노출",
+      "info": "노출 단계 조절",
+      "reset": "노출 초기화"
+    },
+    "filmGrain": {
+      "heading": "필름 그레인",
+      "info": "아날로그 필름 입자 느낌",
+      "reset": "필름 그레인 초기화"
+    },
+    "resetToDefault": "기본값으로 되돌리기",
+    "resetAll": "색보정 전체 초기화",
+    "download": "다운로드"
+  },
+  "removeBg": {
+    "modelName": "AI 배경 제거",
+    "targetPreview": "대상 미리보기",
+    "alphaMatte": "투명 배경으로 오려내기",
+    "feature1": "머리카락·털·가는 윤곽까지 정밀하게 분리",
+    "feature2": "고해상도 투명 PNG로 저장"
+  },
+  "expandCrop": {
+    "modelName": "AI 이미지 확장",
+    "canvasPreview": "캔버스 미리보기",
+    "boundaryOutpainting": "가장자리 이어 그리기",
+    "expand": "확장",
+    "feature1": "조명·스타일·질감을 맞춰 가장자리를 넓혀요",
+    "feature2": "가장자리를 자동으로 자연스럽게 이어 그려요"
+  },
+  "editText": {
+    "heading": "글자 편집 도구",
+    "placeholder": "글자를 어떻게 바꿀지 입력하세요...",
+    "run": "글자 편집 실행",
+    "processing": "처리 중..."
+  },
+  "enhancer": {
+    "heading": "AI 화질 개선",
+    "description": "조명, 선명도, 색 균형을 자동으로 최적화해요.",
+    "run": "화질 개선하기",
+    "processing": "개선하는 중..."
+  },
+  "relight": {
+    "heading": "AI 조명 바꾸기",
+    "description": "조명, 스튜디오 주변광, 그림자를 조절해요.",
+    "run": "조명 적용",
+    "processing": "조명 바꾸는 중..."
+  },
+  "angles": {
+    "heading": "3D 각도 · 원근",
+    "description": "원근 기울기와 카메라 각도를 맞춰요.",
+    "run": "각도 적용",
+    "processing": "바꾸는 중..."
+  },
+  "footer": {
+    "decomposing": "레이어 분리 중 ({progress}%)...",
+    "separateLayers": "레이어 분리하기 {count}",
+    "upscaling": "업스케일 중 ({progress}%)...",
+    "upscaleCost": "업스케일 {cost}",
+    "removingBackground": "배경 제거 중 ({progress}%)...",
+    "removeBackgroundCost": "배경 제거 1.0",
+    "expandingBorders": "가장자리 확장 중 ({progress}%)...",
+    "expandImageCost": "이미지 확장 0.03"
+  },
+  "toasts": {
+    "enterApiKeyUpload": "이미지를 올리려면 API 키를 입력해 주세요.",
+    "imageUploaded": "이미지를 올렸어요!",
+    "uploadFailed": "업로드 실패: {error}",
+    "uploadImageFileOnly": "이미지 파일을 올려 주세요.",
+    "fileTooLarge": "파일이 너무 커요 (최대 20MB): {name}",
+    "viewReset": "화면을 초기화했어요",
+    "enterApiKey": "API 키를 입력해 주세요.",
+    "enterRegionPrompt": "선택한 영역에 적용할 프롬프트를 입력해 주세요.",
+    "editFailed": "편집 실패: {error}",
+    "apiKeyMissingSet": "API 키가 없어요. API 키를 설정해 주세요.",
+    "uploadOrSelectDecompose": "레이어로 분리할 이미지를 올리거나 골라 주세요.",
+    "decomposedInto": "레이어 {count}개로 분리했어요!",
+    "decompositionFailed": "레이어 분리 실패: {error}",
+    "uploadOrSelectUpscale": "업스케일할 이미지를 고르거나 올려 주세요.",
+    "upscaleSuccess": "{model}(으)로 업스케일했어요!",
+    "upscaleNoOutput": "업스케일은 끝났지만 결과 주소를 받지 못했어요.",
+    "upscaleFailed": "업스케일 실패: {error}",
+    "uploadOrSelectRemoveBg": "배경을 지울 이미지를 올리거나 골라 주세요.",
+    "removeBgSuccess": "AI 배경 제거로 배경을 깔끔하게 지웠어요!",
+    "removeBgNoOutput": "배경 제거는 끝났지만 결과 주소를 받지 못했어요.",
+    "removeBgFailed": "배경 제거 실패: {error}",
+    "uploadOrSelectExpand": "확장할 이미지를 올리거나 골라 주세요.",
+    "expandSuccess": "AI 이미지 확장으로 이미지를 넓혔어요!",
+    "expandNoOutput": "이미지 확장은 끝났지만 결과 주소를 받지 못했어요.",
+    "expandFailed": "이미지 확장 실패: {error}",
+    "upscaleSettingsReset": "업스케일 설정을 기본값으로 되돌렸어요",
+    "resetCategory": "{category} 초기화",
+    "colorGradingReset": "색보정을 기본값으로 되돌렸어요",
+    "downloadedGraded": "색보정한 이미지를 다운로드했어요!",
+    "loadedSample": "Seedream 5레이어 예시를 불러왔어요!",
+    "apiKeyMissing": "API 키가 없어요.",
+    "uploadImageFirst": "먼저 이미지를 올려 주세요.",
+    "toolCompleted": "{tool} 완료!",
+    "operationFailed": "작업 실패: {error}",
+    "downloadingAll": "모든 레이어를 다운로드하는 중..."
+  }
+}
